@@ -5,3 +5,5 @@
 /frontend/scs-web-game-frontend/obj/**
 /frontend/scs-web-game-frontend/.vscode/**
 /frontend/scs-web-game-frontend/.vscode/**
+/backend/scs-web-game.test/obj/**
+/backend/scs-web-game.test/bin/**
