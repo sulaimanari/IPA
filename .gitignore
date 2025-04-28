@@ -1,0 +1,7 @@
+/backend/scs-web-game/.vs/**
+/backend/scs-web-game/bin/**
+/backend/scs-web-game/obj/**
+/frontend/scs-web-game-frontend/.vs/**
+/frontend/scs-web-game-frontend/obj/**
+/frontend/scs-web-game-frontend/.vscode/**
+/frontend/scs-web-game-frontend/.vscode/**
