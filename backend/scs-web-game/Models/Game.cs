@@ -5,6 +5,6 @@
         public Guid GameId { get; set; }
         public int Score { get; set; }
         public Guid PlayerId { get; set; }
-        public required Player Player { get; set; }
+        public Player Player { get; set; }
     }
 }

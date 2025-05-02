@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using scs_web_game.Models;
 namespace scs_web_game.Models;
 
 public partial class WebGameContext : DbContext

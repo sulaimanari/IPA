@@ -12,8 +12,8 @@ using scs_web_game.Models;
 namespace scs_web_game.Migrations
 {
     [DbContext(typeof(WebGameContext))]
-    [Migration("20250502084342_InitalTables")]
-    partial class InitalTables
+    [Migration("20250502115209_InitialTables")]
+    partial class InitialTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

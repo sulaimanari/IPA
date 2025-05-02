@@ -11,7 +11,7 @@ using scs_web_game.Models;
 namespace scs_web_game.Migrations
 {
     [DbContext(typeof(WebGameContext))]
-    [Migration("20250428080524_DBEstablishAConnection")]
+    [Migration("20250502114848_DBEstablishAConnection")]
     partial class DBEstablishAConnection
     {
         /// <inheritdoc />
