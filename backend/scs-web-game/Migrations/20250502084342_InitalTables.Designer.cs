@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using scs_web_game.Models;
 
@@ -11,9 +12,11 @@ using scs_web_game.Models;
 namespace scs_web_game.Migrations
 {
     [DbContext(typeof(WebGameContext))]
-    partial class WebGameContextModelSnapshot : ModelSnapshot
+    [Migration("20250502084342_InitalTables")]
+    partial class InitalTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
