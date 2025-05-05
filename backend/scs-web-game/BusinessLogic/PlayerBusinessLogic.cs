@@ -1,6 +1,5 @@
 ﻿using scs_web_game.DataAccessLayer;
 using scs_web_game.DTOs.Player;
-using scs_web_game.Models;
 using scs_web_game.Provider;
 using ILogger = Serilog.ILogger;
 namespace scs_web_game.BusinessLogic

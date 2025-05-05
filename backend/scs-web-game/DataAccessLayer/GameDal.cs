@@ -47,6 +47,7 @@ namespace scs_web_game.DataAccessLayer
 
         public async Task<List<HighScoreDto>> Highscore()
         {
+            logger.Information("Fetching high scores.");
             var highScores = await context.Game
                 .OrderByDescending(game => game.Score)
                 .Take(5)
@@ -57,17 +58,22 @@ namespace scs_web_game.DataAccessLayer
                     Score = game.Score
                 })
                 .ToListAsync();
-
+            logger.Information("Fetched {Count} high scores.", highScores.Count);
             return highScores;
         }
+
         public async Task<GameDto> ScoreOfPlayer(Guid gameId)
         {
+            logger.Information("Fetching score for game ID {GameId}.", gameId);
             var game = await context.Game
                 .Where(g => g.GameId == gameId)
                 .FirstOrDefaultAsync();
 
-            if (game == null) throw new ArgumentException("No game found for the specified game ID.");
-
+            if (game == null) {
+                logger.Warning("No game found for game ID {GameId}.", gameId);
+                throw new ArgumentException("No game found for the specified game ID.");
+            }
+            logger.Information("Found game ID {GameId} with score {Score}.", gameId, game.Score);
             return new GameDto
             {
                 GameId = game.GameId,
@@ -78,12 +84,20 @@ namespace scs_web_game.DataAccessLayer
 
         public async Task<AddScoreDto> AddScore(Guid gameId, Guid employeeId, string username)
         {
+            logger.Information("Adding score for game ID {GameId} by employee ID {EmployeeId}.", gameId, employeeId);
             var employee = await context.Employee
                 .FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
 
-            if (employee == null) throw new ArgumentException("Employee not found.");
-            
+            if (employee == null)
+            {
+                logger.Warning("Employee not found for ID {EmployeeId}.", employeeId);
+                throw new ArgumentException("Employee not found.");
+            }
+
             if (!employee.UserName.Equals(username, StringComparison.OrdinalIgnoreCase))
+            {
+                logger.Warning("Username mismatch: Provided '{Username}', expected '{EmployeeUserName}'.", username,
+                    employee.UserName);
                 return new AddScoreDto
                 {
                     Success = false,
@@ -91,13 +105,19 @@ namespace scs_web_game.DataAccessLayer
                     CorrectFirstName = employee.FirstName,
                     CorrectLastName = employee.LastName
                 };
+            }
+
             var game = await context.Game.FirstOrDefaultAsync(g => g.GameId == gameId);
 
-            if (game == null) throw new ArgumentException("Game not found.");
+            if (game == null)
+            {
+                logger.Warning("Game not found for ID {GameId}.", gameId);
+                throw new ArgumentException("Game not found.");
+            }
 
             game.Score += 1;
             await context.SaveChangesAsync();
-
+            logger.Information("Score updated for game ID {GameId}. New score: {Score}.", gameId, game.Score);
             return new AddScoreDto
             {
                 Success = true,
