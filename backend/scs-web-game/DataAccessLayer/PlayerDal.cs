@@ -10,9 +10,10 @@ namespace scs_web_game.DataAccessLayer
         {
             var newPlayer = new Player
             {
-                PlayerEmail = email
+                PlayerEmail = email,
+                PlayerName = ExtractPlayerNameFromEmail(email)
             };
-            var playerName = ExtractPlayerNameFromEmail(email);
+            
             context.Player.Add(newPlayer);
             await context.SaveChangesAsync();
 
@@ -22,14 +23,14 @@ namespace scs_web_game.DataAccessLayer
             {
                 PlayerId = newPlayer.PlayerId,
                 PlayerEmail = newPlayer.PlayerEmail,
-                PlayerName = playerName
+                PlayerName = newPlayer.PlayerName
             };
         }
         private string ExtractPlayerNameFromEmail(string email)
         {
             var atIndex = email.IndexOf("@scs.ch", StringComparison.OrdinalIgnoreCase);
-            return email[..atIndex];
             logger.Information("Extracted player name: {PlayerName}", email[..atIndex]);
+            return email[..atIndex];
         }
 
         public async Task<PlayerDto> GetPlayerIdByEmail(string email)
@@ -37,7 +38,11 @@ namespace scs_web_game.DataAccessLayer
             var player = await context.Player
                 .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.PlayerEmail == email);
-
+            if(player == null)
+            {
+                logger.Warning("No player found with email: {Email}", email);
+                throw new KeyNotFoundException($"No player found with email: {email}");
+            }
             logger.Information("Player found with ID: {PlayerId}", player.PlayerId);
 
             return new PlayerDto
