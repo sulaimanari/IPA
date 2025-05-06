@@ -82,7 +82,7 @@ namespace scs_web_game.DataAccessLayer
             };
         }
 
-        public async Task<AddScoreDto> AddScore(Guid gameId, Guid employeeId, string username)
+        public async Task<AddScoreDto> AddScore(Guid gameId, Guid employeeId, string employeeFirstName, string employeeLastName)
         {
             logger.Information("Adding score for game ID {GameId} by employee ID {EmployeeId}.", gameId, employeeId);
             var employee = await context.Employee
@@ -93,15 +93,14 @@ namespace scs_web_game.DataAccessLayer
                 logger.Warning("Employee not found for ID {EmployeeId}.", employeeId);
                 throw new ArgumentException("Employee not found.");
             }
-
-            if (!employee.UserName.Equals(username, StringComparison.OrdinalIgnoreCase))
+            if (!employee.FirstName.Equals(employeeFirstName, StringComparison.OrdinalIgnoreCase) ||
+                !employee.LastName.Equals(employeeLastName, StringComparison.OrdinalIgnoreCase))
             {
-                logger.Warning("Username mismatch: Provided '{Username}', expected '{EmployeeUserName}'.", username,
-                    employee.UserName);
+                logger.Warning("Employee name mismatch: Provided '{ProvidedFirstName} {ProvidedLastName}', expected '{EmployeeFirstName} {EmployeeLastName}'.",
+                    employeeFirstName, employeeLastName, employee.FirstName, employee.LastName);
                 return new AddScoreDto
                 {
                     Success = false,
-                    CorrectUserName = employee.UserName,
                     CorrectFirstName = employee.FirstName,
                     CorrectLastName = employee.LastName
                 };

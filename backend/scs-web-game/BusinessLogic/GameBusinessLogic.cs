@@ -46,13 +46,13 @@ namespace scs_web_game.BusinessLogic
             }
         }
 
-        public async Task<AddScoreDto> AddScore(Guid gameId, Guid employeeId, string username)
+        public async Task<AddScoreDto> AddScore(Guid gameId, Guid employeeId, string employeeFirstName, string employeeLastName)
         {
             logger.Information($"Calling AddScore for gameId: {gameId}, employeeId: {employeeId}.");
 
             try
             {
-                var addScoreDto = await gameDal.AddScore(gameId, employeeId, username);
+                var addScoreDto = await gameDal.AddScore(gameId, employeeId, employeeFirstName, employeeLastName);
                 return addScoreDto;
             }
             catch (Exception ex)
