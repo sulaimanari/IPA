@@ -6,6 +6,48 @@ namespace scs_web_game.BusinessLogic
 {
     public class PlayerBusinessLogic(ILogger logger, PlayerDal playerDal) : IPlayer
     {
+        public async Task<PlayerDto> GetOrCreatePlayer(string email)
+        {
+            ValidateEmail(email);
+            try
+            {
+                PlayerDto? existingPlayer = null;
+                try
+                {
+                    existingPlayer = await playerDal.GetPlayerIdByEmail(email);
+                }
+                catch (KeyNotFoundException)
+                {
+                    logger.Warning("No player found with email: {Email}. A new player will be created.", email);
+                }
+
+                if (existingPlayer != null)
+                {
+                    logger.Information("Player found with ID: {PlayerId} for email: {Email}", existingPlayer.PlayerId, email);
+                    return new PlayerDto
+                    {
+                        PlayerId = existingPlayer.PlayerId,
+                        PlayerEmail = existingPlayer.PlayerEmail,
+                        PlayerName = existingPlayer.PlayerName
+                    };
+                }
+
+                var newPlayer = await playerDal.CreatePlayer(email);
+                logger.Information("New player created with email: {Email}", email);
+                return new PlayerDto
+                {
+                    PlayerId = newPlayer.PlayerId,
+                    PlayerEmail = newPlayer.PlayerEmail,
+                    PlayerName = newPlayer.PlayerName
+                };
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Error occurred while processing email: {Email}", email);
+                throw;
+            }
+        }
+
         public async Task<PlayerDto> CreatePlayer(string email)
         {
             ValidateEmail(email);

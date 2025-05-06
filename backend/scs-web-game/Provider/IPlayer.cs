@@ -7,5 +7,6 @@ namespace scs_web_game.Provider
         public Task<PlayerDto> CreatePlayer(string email);
         public Task<PlayerDto> GetPlayerIdByEmail(string email);
         public Task<List<PlayerDto>> GetPlayers();
+        Task<PlayerDto> GetOrCreatePlayer(string email);
     }
 }
