@@ -16,7 +16,12 @@ public partial class WebGameContext : DbContext
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=BATANGA\\SQL22EXPRESS;Database=scs-web-game; Integrated Security=true;TrustServerCertificate=True;");
+    {
+        if (optionsBuilder.IsConfigured) return;
+        var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
+                               ?? "FallbackConnectionString";
+        optionsBuilder.UseSqlServer(connectionString);
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
