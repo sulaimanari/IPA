@@ -33,7 +33,6 @@ namespace scs_web_game.BusinessLogic
                     EmployeeId = randomEmployee.EmployeeId,
                     Image = imageBytes,
                     RandomNameList = nameList,
-                    CorrectName = correctName
                 };
             }
             catch (InvalidOperationException ex)
