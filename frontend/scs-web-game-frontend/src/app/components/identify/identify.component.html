@@ -1,0 +1,11 @@
+<div class="container">
+  <form (ngSubmit)="createPlayer(playerEmail.value)" class="form">
+    <label for="playerEmail">Enter your player Email:</label>
+    <div class="input-group">
+      <input type="text" id="playerEmail" #playerEmail required>
+      <button type="submit">Anmelden</button>
+    </div>
+    <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+  </form>
+</div>
+
