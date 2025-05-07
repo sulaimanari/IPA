@@ -1,0 +1,35 @@
+.header {
+  position: absolute; 
+  top: 70px; 
+  right: 100px; 
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;
+  padding: 10px;
+  background-color: #f1f1f1; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  border-bottom-left-radius: 10px; 
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-right: 10px; 
+}
+
+  .logo img {
+    height: 50px; 
+    width: auto; 
+  }
+
+.player-info {
+  text-align: right;
+}
+
+.player-box {
+  background-color: #f8f9fa; 
+  color: #333; 
+  padding: 5px 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
