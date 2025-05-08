@@ -1,0 +1,27 @@
+<app-timer></app-timer>
+<app-header></app-header>
+
+<div class="game-container">
+  <div class="score-display">
+    <h3>Punkte: {{ game?.score || 0 }}</h3>
+  </div>
+
+  <div class="photo-container">
+    <img [src]="currentPhoto" alt="Mitarbeiterfoto" *ngIf="currentPhoto; else noPhoto" />
+    <ng-template #noPhoto>
+      <p>Kein Foto verfügbar</p>
+    </ng-template>
+  </div>
+
+  <div class="name-list">
+    <button *ngFor="let name of randomNameList"
+            [ngClass]="{
+        correct: highlight[name.firstName + ' ' + name.lastName] === 'correct',
+        incorrect: highlight[name.firstName + ' ' + name.lastName] === 'incorrect'
+      }"
+            [disabled]="!isClickable"
+            (click)="name.firstName && name.lastName && IsSelctedNameCorrect(name.firstName, name.lastName)">
+      {{ name.firstName }} {{ name.lastName }}
+    </button>
+  </div>
+</div>
