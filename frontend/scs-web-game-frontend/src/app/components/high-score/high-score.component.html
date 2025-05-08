@@ -1,0 +1,33 @@
+<app-header></app-header>
+
+<div class="content">
+  <button class="start-button" (click)="goToHome()">Start Spiel</button>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      Rangliste
+    </div>
+    <div class="card-body">
+      <ul class="list-group">
+        <li *ngFor="let score of listHighScore" class="list-group-item d-flex justify-content-between align-items-center">
+          <span>{{ score.playerName }}</span>
+          <span class="badge badge-primary badge-pill">{{ score.score }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-header">
+    Deine letzte Spielpunktzahl:
+  </div>
+  <div class="card-body text-center">
+    <h4 *ngIf="game; else noGame">Anzahl der Punkte: {{ game.score }}</h4>
+    <ng-template #noGame>
+      <p>Keine Spielergebnisse verfügbar.</p>
+    </ng-template>
+  </div>
+</div>
