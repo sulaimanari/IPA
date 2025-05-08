@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using scs_web_game.DTOs.Game;
-using scs_web_game.Models;
 using scs_web_game.Provider;
 using ILogger = Serilog.ILogger;
 
@@ -8,38 +7,8 @@ namespace scs_web_game.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GamesController(WebGameContext context, ILogger logger, IGame game) : ControllerBase
+    public class GamesController(ILogger logger, IGame game) : ControllerBase
     {
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteGame(Guid id)
-        {
-            var deleteGame = await context.Game.FindAsync(id);
-            if (deleteGame == null)
-            {
-                return NotFound();
-            }
-
-            context.Game.Remove(deleteGame);
-            await context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        [HttpGet("GetAllGames")]
-        public async Task<ActionResult<List<GameDto>>> GetAllGames()
-        {
-            try
-            {
-                var getGame = await game.GetAllGame();
-                return Ok(getGame);
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "An error occurred while retrieving all games.");
-                return BadRequest("Internal server error:" + ex.Message);
-            }
-        }
-
         [HttpPost("CreateGame")]
         public async Task<ActionResult<GameDto>> CreateGame([FromBody] Guid playerId)
         {
