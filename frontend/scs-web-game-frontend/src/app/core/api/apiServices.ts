@@ -89,56 +89,6 @@ export class GamesService {
     }
 
     /**
-     * @return OK
-     */
-    getAllGames(): Observable<GameDto[]> {
-        let url_ = this.baseUrl + "/api/Games/GetAllGames";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllGames(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAllGames(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<GameDto[]>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<GameDto[]>;
-        }));
-    }
-
-    protected processGetAllGames(response: HttpResponseBase): Observable<GameDto[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as GameDto[];
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
-    }
-
-    /**
      * @param body (optional) 
      * @return OK
      */
@@ -316,11 +266,11 @@ export class GamesService {
     /**
      * @return OK
      */
-    getHighestScoreOfPlayer(playerId: string): Observable<GameDto> {
-        let url_ = this.baseUrl + "/api/Games/GetHighestScoreOfPlayer/{playerId}";
-        if (playerId === undefined || playerId === null)
-            throw new Error("The parameter 'playerId' must be defined.");
-        url_ = url_.replace("{playerId}", encodeURIComponent("" + playerId));
+    getHighestScoreOfPlayer(gameId: string): Observable<GameDto> {
+        let url_ = this.baseUrl + "/api/Games/GetHighestScoreOfPlayer/{gameId}";
+        if (gameId === undefined || gameId === null)
+            throw new Error("The parameter 'gameId' must be defined.");
+        url_ = url_.replace("{gameId}", encodeURIComponent("" + gameId));
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -376,56 +326,6 @@ export class PlayersService {
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
         this.baseUrl = baseUrl ?? "";
-    }
-
-    /**
-     * @return OK
-     */
-    getAllPlayers(): Observable<PlayerDto[]> {
-        let url_ = this.baseUrl + "/api/Players/GetAllPlayers";
-        url_ = url_.replace(/[?&]$/, "");
-
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "text/plain"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processGetAllPlayers(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processGetAllPlayers(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<PlayerDto[]>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<PlayerDto[]>;
-        }));
-    }
-
-    protected processGetAllPlayers(response: HttpResponseBase): Observable<PlayerDto[]> {
-        const status = response.status;
-        const responseBlob =
-            response instanceof HttpResponse ? response.body :
-            (response as any).error instanceof Blob ? (response as any).error : undefined;
-
-        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 200) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            let result200: any = null;
-            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as PlayerDto[];
-            return _observableOf(result200);
-            }));
-        } else if (status !== 200 && status !== 204) {
-            return blobToText(responseBlob).pipe(_observableMergeMap((_responseText: string) => {
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-            }));
-        }
-        return _observableOf(null as any);
     }
 
     /**
