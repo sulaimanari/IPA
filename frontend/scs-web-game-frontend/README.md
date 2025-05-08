@@ -25,3 +25,16 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+
+# Add component
+# ng generate component ./path/componentName
+
+# Add Service 
+# ng generate service app/path/serviceName
+
+# ng version
+# Angular CLI: 18.2.1
+# Node: 20.17.0
+# Package Manager: npm 11.1.0
+# OS: win32 x64
