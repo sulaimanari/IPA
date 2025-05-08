@@ -14,21 +14,23 @@ export class TimerService {
   public timeLeftDisplay$ = this.timeLeftSubject.asObservable();
 
   constructor(private router: Router) { }
-  endGame() {
+
+  endGame(gameId: string) {
     this.timeLeft = 15;
-    console.log('endGame');
+    console.log('endGame with gameId:', gameId);
     this.resetTimer();
-    this.router.navigate(['/high-score']).then();
+    this.router.navigate(['/high-score'], { queryParams: { gameId } }).then();
   }
 
-  startTimer() {
+  startTimer(gameId: string) {
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         const newTime = parseFloat((this.timeLeft - 0.1).toFixed(1));
         this.timeLeft = newTime;
-        this.timeLeftSubject.next(newTime.toFixed(1)); 
+        this.timeLeftSubject.next(newTime.toFixed(1));
+        console.log('Timer has been started');
       } else {
-        this.endGame();
+        this.endGame(gameId);
       }
     }, 100);
   }
@@ -38,14 +40,14 @@ export class TimerService {
     console.log('Timer has been reset');
   }
 
-  resumeTimer() {
-    this.startTimer(); 
+  resumeTimer(gameId: string) {
+    this.startTimer(gameId);
     console.log('Timer has been resumed');
   }
 
   resetTimer() {
-    this.pauseTimer(); 
-    this.timeLeft = this.initialTime; 
+    this.pauseTimer();
+    this.timeLeft = this.initialTime;
     this.timeLeftSubject.next(this.initialTime.toFixed(1));
     console.log('Timer has been reset');
   }

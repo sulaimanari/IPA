@@ -9,11 +9,4 @@ import { TimerService } from '../../services/timer.service';
 export class TimerComponent {
   constructor(public timerService: TimerService) { }
 
-  ngOnInit(): void {
-    this.timerService.startTimer(); 
-  }
-
-  pauseTimer(): void {
-    this.timerService.pauseTimer();
-  }
 }
