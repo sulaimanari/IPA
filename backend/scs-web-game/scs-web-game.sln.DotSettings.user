@@ -5,5 +5,8 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=33270c6b_002D44b3_002D4158_002D9be8_002D4cd1bb2f4580/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetPlayers_WithNoPlayers_ShouldReturnEmptyList" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;TestAncestor&gt;&#xD;
     &lt;TestId&gt;NUnit3x::6ABAE5DB-E528-4535-92B3-138C20F0BB6B::net8.0::scs_web_game.test.PlayerBusinessLogicTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::6ABAE5DB-E528-4535-92B3-138C20F0BB6B::net8.0::scs_web_game.test.EmployeeBusinessLogicTests&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::6ABAE5DB-E528-4535-92B3-138C20F0BB6B::net8.0::scs_web_game.test.EmployeeDalTests.CompileAndValidateEmployeeImagePath_MultipleCases_ReturnsExpected&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::6ABAE5DB-E528-4535-92B3-138C20F0BB6B::net8.0::scs_web_game.test.EmployeeDalTests&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
