@@ -86,12 +86,12 @@ namespace scs_web_game.Controllers
             }
         }
 
-        [HttpGet("GetHighestScoreOfPlayer/{playerId:guid}")]
-        public async Task<ActionResult<GameDto>> GetHighestScoreOfPlayer(Guid playerId)
+        [HttpGet("GetHighestScoreOfPlayer/{gameId:guid}")]
+        public async Task<ActionResult<GameDto>> GetHighestScoreOfPlayer(Guid gameId)
         {
             try
             {
-                var highestScore = await game.ScoreOfPlayer(playerId);
+                var highestScore = await game.ScoreOfPlayer(gameId);
                 return Ok(highestScore);
             }
             catch (Exception ex)

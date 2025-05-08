@@ -82,18 +82,18 @@ namespace scs_web_game.BusinessLogic
             }
         }
 
-        public async Task<GameDto> ScoreOfPlayer(Guid playerId)
+        public async Task<GameDto> ScoreOfPlayer(Guid gameId)
         {
-            logger.Information($"Calling HighestScoreOfPlayer for playerId: {playerId}.");
+            logger.Information($"Calling HighestScoreOfPlayer for playerId: {gameId}.");
 
             try
             {
-                var highestScore = await gameDal.ScoreOfPlayer(playerId);
+                var highestScore = await gameDal.ScoreOfPlayer(gameId);
                 return highestScore;
             }
             catch (Exception ex)
             {
-                logger.Error(ex, $"Error occurred while retrieving highest score for playerId: {playerId}.");
+                logger.Error(ex, $"Error occurred while retrieving highest score for playerId: {gameId}.");
                 throw;
             }
         }

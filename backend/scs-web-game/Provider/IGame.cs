@@ -8,6 +8,6 @@ namespace scs_web_game.Provider
         public Task<List<GameDto>> GetAllGame();
         public Task<AddScoreDto> AddScore(Guid gameId, Guid employeeId, string employeeFirstName, string username);
         public Task<List<HighScoreDto>> Highscore();
-        public Task<GameDto> ScoreOfPlayer(Guid playerId);
+        public Task<GameDto> ScoreOfPlayer(Guid gameId);
     }
 }

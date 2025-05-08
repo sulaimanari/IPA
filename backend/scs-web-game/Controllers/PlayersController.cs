@@ -107,6 +107,5 @@ namespace scs_web_game.Controllers
                 return StatusCode(500, "Internal server error. " + ex.Message);
             }
         }
-
     }
 }
